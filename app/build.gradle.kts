@@ -3,7 +3,6 @@ plugins {
     id("kotlin-android")
 }
 
-val kotlinVersion = "1.6.10"
 val composeVersion = "1.1.1"
 
 android {
@@ -58,10 +57,10 @@ android {
         }
     }
 
-    // lint {
-    //     ignoreWarnings = false
-    //     warningsAsErrors = true
-    // }
+    lint {
+        ignoreWarnings = false
+        warningsAsErrors = true
+    }
 }
 
 dependencies {
@@ -75,10 +74,17 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 
+    // kotlin
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.6.10"))
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
     // compose
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
     debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
+
+    // security
+    implementation("androidx.security:security-crypto:1.0.0")
 }

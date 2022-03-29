@@ -18,11 +18,25 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.mohsenoid.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
 
-    private val sharedPreferences: SharedPreferences = TODO()
+    private val masterKeyAlias: String by lazy {
+        MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+    }
+
+    private val sharedPreferences: SharedPreferences by lazy {
+        EncryptedSharedPreferences.create(
+            FILE_NAME,
+            masterKeyAlias,
+            applicationContext,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+    }
 
     private fun loadSecret(): String? =
         sharedPreferences.getString(SECRET_KEY, null)
@@ -49,6 +63,7 @@ class MainActivity : ComponentActivity() {
     }
 
     companion object {
+        private const val FILE_NAME = "some_shared_prefs"
         private const val SECRET_KEY = "secret"
     }
 }
