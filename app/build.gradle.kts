@@ -63,6 +63,10 @@ android {
         }
     }
 
+    kotlinOptions {
+        allWarningsAsErrors = true
+    }
+
     lint {
         ignoreWarnings = false
         warningsAsErrors = true
