@@ -1,6 +1,9 @@
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
+    id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
 }
 
 val composeVersion = "1.1.1"
@@ -60,6 +63,13 @@ android {
     lint {
         ignoreWarnings = false
         warningsAsErrors = true
+    }
+}
+
+ktlint {
+    reporters {
+        reporter(ReporterType.HTML)
+        reporter(ReporterType.CHECKSTYLE)
     }
 }
 
