@@ -82,6 +82,7 @@ fun MainScreen(secret: String?, onClick: (secret: String) -> Unit) {
             Text(text = "Save")
         }
     }
+
 }
 
 @Preview(showBackground = true)
