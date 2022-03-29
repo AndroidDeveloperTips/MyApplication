@@ -1,9 +1,12 @@
+@file:Suppress("MagicNumber", "SpellCheckingInspection")
+
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     id("com.android.application")
     id("kotlin-android")
     id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
+    id("io.gitlab.arturbosch.detekt") version "1.19.0"
 }
 
 val composeVersion = "1.1.1"
@@ -64,6 +67,12 @@ android {
         ignoreWarnings = false
         warningsAsErrors = true
     }
+}
+
+detekt {
+    allRules = true
+    config = files("detekt-config.yml")
+    buildUponDefaultConfig = true
 }
 
 ktlint {
