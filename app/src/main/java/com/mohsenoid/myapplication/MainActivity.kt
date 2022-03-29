@@ -71,7 +71,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen(secret: String?, onClick: (secret: String) -> Unit) {
     var text by remember { mutableStateOf(secret ?: "") }
-    Column(Modifier.padding(16.dp)) {
+    Column(Modifier.padding(16.dp) ) {
         TextField(
             value = text,
             onValueChange = { text = it },
