@@ -7,6 +7,8 @@ plugins {
     id("kotlin-android")
     id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
     id("io.gitlab.arturbosch.detekt") version "1.19.0"
+    id("com.google.firebase.appdistribution")
+    id("com.google.gms.google-services")
 }
 
 val composeVersion = "1.1.1"
@@ -28,6 +30,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            firebaseAppDistribution {
+                groups = "QA"
+            }
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
