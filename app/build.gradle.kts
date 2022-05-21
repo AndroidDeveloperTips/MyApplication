@@ -2,6 +2,8 @@
 
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
+val envReleaseNote: String = System.getenv("RELEASE_NOTE") ?: "LOCAL_BUILD"
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -14,14 +16,18 @@ plugins {
 val composeVersion = "1.1.1"
 
 android {
+    namespace = "com.mohsenoid.myapplication"
+
     compileSdk = 31
 
     defaultConfig {
         applicationId = "com.mohsenoid.myapplication"
+
         minSdk = 23
         targetSdk = 31
-        versionCode = 1
-        versionName = "1.0"
+
+        versionCode = 2
+        versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -33,6 +39,7 @@ android {
         debug {
             firebaseAppDistribution {
                 groups = "QA"
+                releaseNotes = envReleaseNote
             }
         }
         release {
