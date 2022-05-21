@@ -20,6 +20,15 @@ android {
 
     compileSdk = 31
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("${rootProject.projectDir}/keystore.jks")
+            storePassword = "123456"
+            keyAlias = "app"
+            keyPassword = "123456"
+        }
+    }
+
     defaultConfig {
         applicationId = "com.mohsenoid.myapplication"
 
@@ -33,21 +42,46 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        signingConfig = signingConfigs["release"]
+
+        firebaseAppDistribution {
+            artifactType = "APK"
+            groups = "QA"
+            releaseNotes = envReleaseNote
+        }
     }
 
     buildTypes {
-        debug {
-            firebaseAppDistribution {
-                groups = "QA"
-                releaseNotes = envReleaseNote
-            }
-        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+        }
+
+        val environmentFlavorDimension = "environment"
+        flavorDimensions.add(environmentFlavorDimension)
+        productFlavors {
+            create("production") {
+                isDefault = true
+                dimension = environmentFlavorDimension
+            }
+
+            create("staging") {
+                dimension = environmentFlavorDimension
+
+                applicationIdSuffix = ".stg"
+                versionNameSuffix = "-stg"
+            }
+
+            create("development") {
+                dimension = environmentFlavorDimension
+
+                applicationIdSuffix = ".dev"
+                versionNameSuffix = "-dev"
+            }
         }
     }
 
