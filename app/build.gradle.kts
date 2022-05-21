@@ -2,6 +2,8 @@
 
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
+val envReleaseNote: String = System.getenv("RELEASE_NOTE") ?: "LOCAL_BUILD"
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -35,6 +37,7 @@ android {
         debug {
             firebaseAppDistribution {
                 groups = "QA"
+                releaseNotes = envReleaseNote
             }
         }
         release {
