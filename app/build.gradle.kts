@@ -20,34 +20,68 @@ android {
 
     compileSdk = 31
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("${rootProject.projectDir}/keystore.jks")
+            storePassword = "123456"
+            keyAlias = "app"
+            keyPassword = "123456"
+        }
+    }
+
     defaultConfig {
         applicationId = "com.mohsenoid.myapplication"
 
         minSdk = 23
         targetSdk = 31
 
-        versionCode = 2
-        versionName = "1.1.0"
+        versionCode = 3
+        versionName = "1.2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        signingConfig = signingConfigs["release"]
+
+        firebaseAppDistribution {
+            artifactType = "APK"
+            groups = "QA"
+            releaseNotes = envReleaseNote
+        }
     }
 
     buildTypes {
-        debug {
-            firebaseAppDistribution {
-                groups = "QA"
-                releaseNotes = envReleaseNote
-            }
-        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+        }
+
+        val environmentFlavorDimension = "environment"
+        flavorDimensions.add(environmentFlavorDimension)
+        productFlavors {
+            create("production") {
+                isDefault = true
+                dimension = environmentFlavorDimension
+            }
+
+            create("staging") {
+                dimension = environmentFlavorDimension
+
+                applicationIdSuffix = ".stg"
+                versionNameSuffix = "-stg"
+            }
+
+            create("development") {
+                dimension = environmentFlavorDimension
+
+                applicationIdSuffix = ".dev"
+                versionNameSuffix = "-dev"
+            }
         }
     }
 
@@ -103,7 +137,7 @@ ktlint {
 dependencies {
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("com.google.android.material:material:1.5.0")
+    implementation("com.google.android.material:material:1.6.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
     implementation("androidx.activity:activity-compose:1.4.0")
 
