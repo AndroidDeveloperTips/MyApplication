@@ -14,6 +14,8 @@ plugins {
 val composeVersion = "1.1.1"
 
 android {
+    namespace = "com.mohsenoid.myapplication"
+
     compileSdk = 31
 
     defaultConfig {
