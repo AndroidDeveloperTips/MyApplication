@@ -20,11 +20,9 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Export release note
+      - name: Assemble and Deploy
         run: |
           export RELEASE_NOTE=$(git log -1 --pretty=format:"Time: %ad%nHash: %h%nAuthor: %an <%ae>%nMessage: %s")
-
-      - name: Assemble and Deploy
-        run: ./gradlew assembleProductionRelease appDistributionUploadProductionRelease
+          ./gradlew assembleProductionRelease appDistributionUploadProductionRelease
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
