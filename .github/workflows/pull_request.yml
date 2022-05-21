@@ -1,8 +1,8 @@
-name: Build and Deploy
+name: Build Pull Request
 
 on:
-  push:
-    branches: [ main ]
+  pull_request:
+    branches: [ main, develop ]
 
 jobs:
   build:
@@ -20,8 +20,5 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-
-      - name: Build and Deploy Debug
-        run: ./gradlew assembleDebug appDistributionUploadDebug
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Build with Gradle
+        run: ./gradlew build
