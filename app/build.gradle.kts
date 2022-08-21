@@ -7,18 +7,18 @@ val envReleaseNote: String = System.getenv("RELEASE_NOTE") ?: "LOCAL_BUILD"
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
-    id("io.gitlab.arturbosch.detekt") version "1.19.0"
+    id("org.jlleitschuh.gradle.ktlint")
+    id("io.gitlab.arturbosch.detekt")
     id("com.google.firebase.appdistribution")
     id("com.google.gms.google-services")
 }
 
-val composeVersion = "1.1.1"
+val composeVersion = "1.2.0"
 
 android {
     namespace = "com.mohsenoid.myapplication"
 
-    compileSdk = 31
+    compileSdk = 32
 
     signingConfigs {
         create("release") {
@@ -93,7 +93,7 @@ android {
     kotlinOptions {
         // allWarningsAsErrors = true
         jvmTarget = JavaVersion.VERSION_1_8.toString()
-        freeCompilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
+        freeCompilerArgs = listOf("-opt-in=kotlin.RequiresOptIn")
     }
 
     buildFeatures {
@@ -135,18 +135,18 @@ ktlint {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("com.google.android.material:material:1.6.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
-    implementation("androidx.activity:activity-compose:1.4.0")
+    implementation("androidx.core:core-ktx:1.8.0")
+    implementation("androidx.appcompat:appcompat:1.5.0")
+    implementation("com.google.android.material:material:1.6.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
+    implementation("androidx.activity:activity-compose:1.5.1")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 
     // kotlin
-    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.6.10"))
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.7.0"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     // compose
